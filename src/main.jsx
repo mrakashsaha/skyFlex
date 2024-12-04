@@ -10,6 +10,7 @@ import ExtraRoute from './components/ExtraRoute.jsx';
 import Register from './components/Register.jsx';
 import Login from './components/Login.jsx';
 import Home from './components/Home.jsx';
+import { fetchURL } from '../fetchURL.js';
 
 
 const router = createBrowserRouter([
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       {
         path:"/all_movies", 
         element: <AllMovies></AllMovies>,
+        loader: ()=>fetch(`${fetchURL}/movies`),
       },
       {
         path:"/add_movies", 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Rating } from 'react-simple-star-rating';
+import { fetchURL } from '../../fetchURL';
 
 const AddMovies = () => {
 
@@ -12,7 +13,20 @@ const AddMovies = () => {
 
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+    const onSubmit = (data) => {
+        fetch (`${fetchURL}/movies`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+
+            body: JSON.stringify(data),
+
+        })
+        .then (res => res.json())
+        .then (data => console.log(data))
+
+    }
 
 
     return (
