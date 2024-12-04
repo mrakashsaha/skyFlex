@@ -14,7 +14,7 @@ const AddMovies = () => {
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const onSubmit = (data) => {
-        fetch (`${fetchURL}/movies`, {
+        fetch(`${fetchURL}/movies`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -23,8 +23,8 @@ const AddMovies = () => {
             body: JSON.stringify(data),
 
         })
-        .then (res => res.json())
-        .then (data => console.log(data))
+            .then(res => res.json())
+            .then(data => console.log(data))
 
     }
 
@@ -57,6 +57,7 @@ const AddMovies = () => {
                         <span className="label-text">Genre</span>
                     </label>
                     <select className="select select-bordered" {...register("genre", { required: true })}>
+                        <option value="">-- Select Genre --</option>
                         <option value="Action">Action</option>
                         <option value="Comedy">Comedy</option>
                         <option value="Horror">Horror</option>
@@ -83,6 +84,7 @@ const AddMovies = () => {
                         <span className="label-text">Release Year</span>
                     </label>
                     <select className='select select-bordered' {...register("year", { required: true })}>
+                    <option value="">-- Select Year --</option>
                         <option value="1990">1990</option>
                         <option value="1991">1991</option>
                         <option value="1992">1992</option>
@@ -128,7 +130,7 @@ const AddMovies = () => {
                     <label className="label">
                         <span className="label-text">Rate This Movie</span>
                     </label>
-                    <Rating onClick={handleRating} transition allowFraction showTooltip tooltipDefaultText='0'/>
+                    <Rating onClick={handleRating} transition allowFraction showTooltip tooltipDefaultText='0' />
                 </div>
 
                 <div className="form-control">

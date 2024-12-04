@@ -11,6 +11,7 @@ import Register from './components/Register.jsx';
 import Login from './components/Login.jsx';
 import Home from './components/Home.jsx';
 import { fetchURL } from '../fetchURL.js';
+import AuthProvider from './components/Provider/AuthProvider.jsx';
 
 
 const router = createBrowserRouter([
@@ -19,32 +20,32 @@ const router = createBrowserRouter([
     element: <Root></Root>,
     children: [
       {
-        path:"/", 
+        path: "/",
         element: <Home></Home>,
       },
       {
-        path:"/all_movies", 
+        path: "/all_movies",
         element: <AllMovies></AllMovies>,
-        loader: ()=>fetch(`${fetchURL}/movies`),
+        loader: () => fetch(`${fetchURL}/movies`),
       },
       {
-        path:"/add_movies", 
+        path: "/add_movies",
         element: <AddMovies></AddMovies>,
       },
       {
-        path:"/my_fav", 
+        path: "/my_fav",
         element: <MyFavorites></MyFavorites>,
       },
       {
-        path:"/extra_route", 
+        path: "/extra_route",
         element: <ExtraRoute></ExtraRoute>,
       },
       {
-        path:"/login", 
+        path: "/login",
         element: <Login></Login>
       },
       {
-        path:"/register", 
+        path: "/register",
         element: <Register></Register>,
       },
     ]
@@ -54,6 +55,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 )
