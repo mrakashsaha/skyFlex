@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from './Provider/AuthProvider';
 
 const NavBar = () => {
+    const {userInfo, handleLogout, loading} = useContext (AuthContext);
+    // if (loading) {
+    //     return;
+    // }
+
+    const handleLogoutUser = () => {
+        handleLogout()
+        .then (console.log ('user loguted sucessfully'))
+        .catch (error => console.log (error));
+    }
+
     const menuList =
         <>
             <li><NavLink to={"/"} >Home</NavLink></li>
@@ -11,7 +23,8 @@ const NavBar = () => {
             <li><NavLink to={"/extra_route"} >Extra Route</NavLink></li>
         </>
 
-    return (
+
+   return (
         <div>
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
@@ -48,8 +61,10 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
+                    {!loading && <span>{userInfo?.name}</span>}
                     <Link to={"/register"} className="btn rounded-md">Register</Link>
                     <Link to={"/login"} className="btn">Login</Link>
+                    <button onClick={handleLogoutUser} className='btn'>Logout</button>
                 </div>
             </div>
         </div>

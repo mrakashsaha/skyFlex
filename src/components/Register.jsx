@@ -1,25 +1,42 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from './Provider/AuthProvider';
+import { fetchURL } from '../../fetchURL';
 
 const Register = () => {
 
-    const {handleSignUp} = useContext(AuthContext);
+    const { handleSignUp } = useContext(AuthContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
 
+        const {name, email, photo} = data;
+
+        const userDoc = {name, email, photo};
+        
 
 
-        console.log (data.email);
+
 
         handleSignUp(data.email, data.password)
-        .then((result) => {
-            console.log (result)
-          })
-          .catch((error) => {
-            console.log (error);
-          });
+            .then((result) => {
+                console.log(result);
+
+                fetch(`${fetchURL}/users`, {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+
+                    body: JSON.stringify(userDoc),
+
+                })
+                    .then(res => res.json())
+                    .then(data => console.log(data))
+            })
+            .catch((error) => {
+                console.log(error);
+            });
 
     }
 
@@ -48,7 +65,7 @@ const Register = () => {
                     <label className="label">
                         <span className="label-text">Photo URL</span>
                     </label>
-                    <input type='url' className="input input-bordered" placeholder='Enter Photo URL' {...register("photo", { required: true})} />
+                    <input type='url' className="input input-bordered" placeholder='Enter Photo URL' {...register("photo", { required: true })} />
 
                     {errors.photo && <p className='text-red-600'>Photo URL is Required</p>}
                 </div>
@@ -57,7 +74,7 @@ const Register = () => {
                     <label className="label">
                         <span className="label-text">Password</span>
                     </label>
-                    <input type='password' className="input input-bordered" placeholder='Create Password' {...register("password", {required: true, pattern: /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/i })}/>
+                    <input type='password' className="input input-bordered" placeholder='Create Password' {...register("password", { required: true, pattern: /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/i })} />
 
                     {errors.password && <p className='text-red-600'>Password must have an uppercase, a lowercase, and be 6+ characters.</p>}
                 </div>
