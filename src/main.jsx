@@ -12,6 +12,7 @@ import Login from './components/Login.jsx';
 import Home from './components/Home.jsx';
 import { fetchURL } from '../fetchURL.js';
 import AuthProvider from './components/Provider/AuthProvider.jsx';
+import MovieDetails from './components/MovieDetails.jsx';
 
 
 const router = createBrowserRouter([
@@ -47,6 +48,11 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+      {
+        path: "/movies/:id",
+        element: <MovieDetails></MovieDetails>,
+        loader: ({params})=> fetch(`${fetchURL}/movies/${params.id}`)
       },
     ]
   },

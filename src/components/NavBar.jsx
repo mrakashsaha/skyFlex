@@ -1,17 +1,17 @@
 import React, { useContext, useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from './Provider/AuthProvider';
 
 const NavBar = () => {
-    const {userInfo, handleLogout, loading} = useContext (AuthContext);
-    // if (loading) {
-    //     return;
-    // }
+
+    const navigate = useNavigate();
+    const { userInfo, handleLogout, loading } = useContext(AuthContext);
+
 
     const handleLogoutUser = () => {
         handleLogout()
-        .then (console.log ('user loguted sucessfully'))
-        .catch (error => console.log (error));
+            .then(navigate("/login"))
+            .catch(error => console.log(error));
     }
 
     const menuList =
@@ -24,7 +24,7 @@ const NavBar = () => {
         </>
 
 
-   return (
+    return (
         <div>
             <div className="navbar bg-base-100">
                 <div className="navbar-start">
@@ -61,10 +61,31 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    {!loading && <span>{userInfo?.name}</span>}
-                    <Link to={"/register"} className="btn rounded-md">Register</Link>
-                    <Link to={"/login"} className="btn">Login</Link>
-                    <button onClick={handleLogoutUser} className='btn'>Logout</button>
+                    {(loading) ?
+                        <>
+                            <span className="loading loading-ring loading-lg"></span>
+                        </>
+                        :
+                        userInfo ?
+                            <>
+                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle flex avatar tooltip tooltip-bottom" data-tip={userInfo?.name}>
+                                    <div className="w-10 rounded-full">
+                                        <img
+                                            alt="user img"
+                                            src={userInfo?.photo} />
+                                    </div>
+                                </div>
+                                <button onClick={handleLogoutUser} className='btn'>Logout</button>
+                            </>
+                            :
+                            <>
+                                <Link to={"/register"} className="btn rounded-md">Register</Link>
+                                <Link to={"/login"} className="btn">Login</Link>
+                            </>
+
+
+                    }
+
                 </div>
             </div>
         </div>

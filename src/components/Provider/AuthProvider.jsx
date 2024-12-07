@@ -7,6 +7,14 @@ export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
 
+    // Normal Function 
+    function convertMinutesToTime(minutes) {
+        const hours = Math.floor(minutes / 60);
+        const mins = minutes % 60;
+        return `${String(hours).padStart(2, '0')} : ${String(mins).padStart(2, '0')}`;
+    }
+
+
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -20,6 +28,7 @@ const AuthProvider = ({ children }) => {
     const handleSignUp = (email, password) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
+
 
     }
 
@@ -37,7 +46,7 @@ const AuthProvider = ({ children }) => {
 
 
     const handleLogout = () => {
-        setUserInfo (null);
+        setUserInfo(null);
         return signOut(auth);
     }
 
@@ -80,6 +89,7 @@ const AuthProvider = ({ children }) => {
         handleLogin,
         handleLoginWithGoogle,
         handleLogout,
+        convertMinutesToTime,
 
     }
 

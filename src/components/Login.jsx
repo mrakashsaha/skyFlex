@@ -1,9 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from './Provider/AuthProvider';
 import { useForm } from 'react-hook-form';
+import { fetchURL } from '../../fetchURL';
+import { getAdditionalUserInfo } from 'firebase/auth';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const { handleLogin, handleLoginWithGoogle } = useContext(AuthContext);
+    const navigate = useNavigate()
+    const { setLoading, handleLogin, handleLoginWithGoogle } = useContext(AuthContext);
 
     const [firebaseError, setFirebaseError] = useState(null);
 
@@ -12,15 +16,16 @@ const Login = () => {
 
     const onSubmit = (data) => {
 
-        console.log(data.email);
-
         handleLogin(data.email, data.password)
             .then((result) => {
                 console.log(result);
+                setLoading(false);
+                navigate('/')
             })
             .catch((error) => {
                 // console.log (error);
                 setFirebaseError(error.code);
+                setLoading(false);
             });
 
     }
@@ -28,11 +33,42 @@ const Login = () => {
     const handleGoogleLogin = () => {
         handleLoginWithGoogle()
             .then((result) => {
-                console.log(result);
+
+                const isNewUser = getAdditionalUserInfo(result).isNewUser;
+
+                if (isNewUser) {
+
+                    const userDoc = {
+                        name: result.user.displayName,
+                        email: result.user.email,
+                        photo: result.user.photoURL,
+                    }
+
+
+                    fetch(`${fetchURL}/users`, {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+
+                        body: JSON.stringify(userDoc),
+
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data)
+                            setLoading(false);
+                        })
+
+                }
+
+                navigate('/')
+                setLoading(false);
             })
             .catch((error) => {
                 // console.log (error);
                 setFirebaseError(error.code);
+                setLoading(false);
             });
 
     }
@@ -60,9 +96,13 @@ const Login = () => {
                     {firebaseError && <p className='text-red-600'>{firebaseError}</p>}
                 </div>
 
+                <label className="label">
+                    <span>Don't have an account? <Link className='text-blue-700 underline' to={"/register"}>Register Here</Link> </span>
+                </label>
 
-                <input className='btn' type="submit" />
-                <a onClick={handleGoogleLogin} className='btn'>Login with Google</a>
+
+                <input className='btn' type="submit" value={'Login'} />
+                <a onClick={handleGoogleLogin} className='btn'>Continue with Google</a>
             </form>
         </div>
     );

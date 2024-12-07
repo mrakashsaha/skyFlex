@@ -2,18 +2,23 @@ import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from './Provider/AuthProvider';
 import { fetchURL } from '../../fetchURL';
+import { Link, useNavigate } from 'react-router-dom';
+import { getAdditionalUserInfo } from 'firebase/auth';
 
 const Register = () => {
 
-    const { handleSignUp } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const { handleSignUp, setLoading, handleLoginWithGoogle } = useContext(AuthContext);
+
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
 
-        const {name, email, photo} = data;
+        const { name, email, photo } = data;
 
-        const userDoc = {name, email, photo};
-        
+        const userDoc = { name, email, photo };
+
 
 
 
@@ -32,10 +37,59 @@ const Register = () => {
 
                 })
                     .then(res => res.json())
-                    .then(data => console.log(data))
+                    .then(data => {
+                        console.log(data)
+                        setLoading(false);
+                        navigate('/')
+                    })
             })
             .catch((error) => {
                 console.log(error);
+                alert(error.code)
+                setLoading(false);
+            });
+
+    }
+
+    const handleGoogleLogin = () => {
+        handleLoginWithGoogle()
+            .then((result) => {
+
+                const isNewUser = getAdditionalUserInfo(result).isNewUser;
+
+                if (isNewUser) {
+
+                    const userDoc = {
+                        name: result.user.displayName,
+                        email: result.user.email,
+                        photo: result.user.photoURL,
+                    }
+
+
+                    fetch(`${fetchURL}/users`, {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+
+                        body: JSON.stringify(userDoc),
+
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data)
+                            setLoading(false);
+                        })
+
+                }
+
+                navigate('/');
+                setLoading(false);
+            })
+            .catch((error) => {
+                // console.log (error);
+                console.log(error);
+                setLoading(false);
             });
 
     }
@@ -77,10 +131,15 @@ const Register = () => {
                     <input type='password' className="input input-bordered" placeholder='Create Password' {...register("password", { required: true, pattern: /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/i })} />
 
                     {errors.password && <p className='text-red-600'>Password must have an uppercase, a lowercase, and be 6+ characters.</p>}
+
+                    <label className="label">
+                        <span>Already have an account? <Link className='text-blue-700 underline' to={"/login"}>Login</Link> </span>
+                    </label>
                 </div>
 
 
-                <input className='btn' type="submit" />
+                <input className='btn' type="submit" value={"Signup"} />
+                <a onClick={handleGoogleLogin} className='btn'>Continue with Google</a>
             </form>
         </div>
     );

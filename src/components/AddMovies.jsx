@@ -37,9 +37,9 @@ const AddMovies = () => {
                     <label className="label">
                         <span className="label-text">Movie Poster</span>
                     </label>
-                    <input className="input input-bordered" placeholder='Enter Poster URL' {...register("poster", { required: true, pattern: /^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/[\w-./?%&=]*)?$/i })} />
+                    <input type='url' className="input input-bordered" placeholder='Enter Poster URL' {...register("poster", { required: true})} />
 
-                    {errors.poster && <p className='text-red-600'>Poster URL is Not Valid</p>}
+                    {errors.poster && <p className='text-red-600'>Poster is required</p>}
                 </div>
 
                 <div className="form-control">
