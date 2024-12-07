@@ -2,12 +2,16 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Rating } from 'react-simple-star-rating';
 import { fetchURL } from '../../fetchURL';
+import { useLoaderData } from 'react-router-dom';
 
-const AddMovies = () => {
-
+const UpdateMovie = () => {
+    const currentMovieData = useLoaderData();
     const [ratingError, setRatingError] = useState (false);
+    const { duration, genre, poster, rating, summary, title, year, _id } = currentMovieData;
 
-    const [rating, setRating] = useState(0)
+    console.log (currentMovieData);
+
+    const [rating2, setRating] = useState(0)
     const handleRating = (rate) => {
         setRating(rate);
         setValue("rating", `${rate}`)
@@ -16,13 +20,14 @@ const AddMovies = () => {
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const onSubmit = (data) => {
-        if (!rating) {
+        if (!rating2) {
             setRatingError(true)
             return;
         }
 
-        fetch(`${fetchURL}/movies`, {
-            method: 'POST',
+
+        fetch(`${fetchURL}/update_movie/${_id}`, {
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
@@ -38,13 +43,14 @@ const AddMovies = () => {
 
     return (
         <div>
+            <h2 className='text-3xl text-center'>Update Movie</h2>
             <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
 
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Movie Poster</span>
                     </label>
-                    <input type='url' className="input input-bordered" placeholder='Enter Poster URL' {...register("poster", { required: true})} />
+                    <input type='url' className="input input-bordered" placeholder='Enter Poster URL' defaultValue={poster} {...register("poster", { required: true})} />
 
                     {errors.poster && <p className='text-red-600'>Poster is required</p>}
                 </div>
@@ -53,7 +59,7 @@ const AddMovies = () => {
                     <label className="label">
                         <span className="label-text">Movie Title</span>
                     </label>
-                    <input type='text' className="input input-bordered" placeholder='Enter Title of Movie' {...register("title", { required: true, minLength: 2 })} />
+                    <input type='text' className="input input-bordered" placeholder='Enter Title of Movie' defaultValue={title} {...register("title", { required: true, minLength: 2 })} />
 
                     {errors.title && <p className='text-red-600'>Movie title require atleast 2 characters</p>}
                 </div>
@@ -63,7 +69,7 @@ const AddMovies = () => {
                     <label className="label">
                         <span className="label-text">Genre</span>
                     </label>
-                    <select className="select select-bordered" {...register("genre", { required: true })}>
+                    <select className="select select-bordered" defaultValue={genre} {...register("genre", { required: true })}>
                         <option value="">-- Select Genre --</option>
                         <option value="Action">Action</option>
                         <option value="Comedy">Comedy</option>
@@ -81,7 +87,7 @@ const AddMovies = () => {
                     <label className="label">
                         <span className="label-text">Duration</span>
                     </label>
-                    <input className='input input-bordered' placeholder='157' type="number" {...register("duration", { required: true, min: 60 })} />
+                    <input className='input input-bordered' placeholder='157' type="number" defaultValue={duration} {...register("duration", { required: true, min: 60 })} />
 
                     {errors.duration && <p className='text-red-600'>Movie duration atleast 60 minutes</p>}
                 </div>
@@ -90,7 +96,7 @@ const AddMovies = () => {
                     <label className="label">
                         <span className="label-text">Release Year</span>
                     </label>
-                    <select className='select select-bordered' {...register("year", { required: true })}>
+                    <select className='select select-bordered' defaultValue={year} {...register("year", { required: true })}>
                     <option value="">-- Select Year --</option>
                         <option value="1990">1990</option>
                         <option value="1991">1991</option>
@@ -137,15 +143,14 @@ const AddMovies = () => {
                     <label className="label">
                         <span className="label-text">Rate This Movie</span>
                     </label>
-                    <Rating onClick={handleRating} transition allowFraction showTooltip tooltipDefaultText='0' />
-                    {ratingError && <p className='text-red-600'>Ratting is Required</p>}
+                    <Rating initialValue={rating} onClick={handleRating} transition allowFraction showTooltip tooltipDefaultText='0' />
                 </div>
 
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Summary</span>
                     </label>
-                    <textarea className='textarea textarea-bordered'  {...register("summary", { required: true, minLength: 10 })} />
+                    <textarea className='textarea textarea-bordered' defaultValue={summary}  {...register("summary", { required: true, minLength: 10 })} />
 
                     {errors.summary && <p className='text-red-600'>Summery should be atleast 10 characters</p>}
                 </div>
@@ -156,4 +161,4 @@ const AddMovies = () => {
     );
 };
 
-export default AddMovies;
+export default UpdateMovie;

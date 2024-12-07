@@ -8,25 +8,52 @@ import { AuthContext } from './Provider/AuthProvider';
 import { fetchURL } from '../../fetchURL';
 
 const MovieDetails = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
     const { convertMinutesToTime } = useContext(AuthContext);
     const movieData = useLoaderData();
     const { duration, genre, poster, rating, summary, title, year, _id } = movieData;
 
+
+
     const handleDelete = (id) => {
 
-        console.log (id);
+        console.log(id);
 
         fetch(`${fetchURL}/movies/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
             .then(data => {
-                console.log (data);
+                console.log(data);
                 navigate("/all_movies")
 
             })
-            
+
+    }
+
+    const handleAddToFav = (id) => {
+
+        const favMovieDoc = {
+            userEmail: user.email,
+            favId: id,
+            duration, genre, poster, rating, summary, title, year,
+        }
+
+        console.log(id);
+        fetch(`${fetchURL}/fav_movies`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+
+            body: JSON.stringify(favMovieDoc),
+
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(error => console.log(error))
+
     }
 
     return (
@@ -84,9 +111,11 @@ const MovieDetails = () => {
                     </div>
                 </div>
             </div>
-            <div className='max-w-7xl mx-auto flex gap-4 my-5'>
-                <button  className='btn btn-lg rounded-full bg-black text-white hover:bg-[#e90101] border-none'>Add to Favourite</button>
-                <button onClick={()=>handleDelete (_id)} className='btn btn-lg rounded-full btn-outline border-[#e90101] border-2 text-[#e90101] hover:bg-black'>Delete Movie</button>
+            <div className='max-w-7xl mx-auto flex gap-6 my-5 p-2 lg:p-0'>
+                <button onClick={() => handleAddToFav(_id)} className='btn btn-md lg:btn-lg rounded-none bg-black text-white hover:bg-[#e90101] border-none'>Add to Favourite</button>
+                <Link to={`/update_movie/${_id}`} className='btn btn-md lg:btn-lg rounded-none btn-outline border-black border-2 text-black hover:bg-black'>Update Movie</Link>
+                <button onClick={() => handleDelete(_id)} className='btn btn-md lg:btn-lg rounded-none btn-outline border-[#e90101] border-2 text-[#e90101] hover:bg-black'>Delete Movie</button>
+                <Link to={"/all_movies"} className='btn btn-md lg:btn-lg rounded-none btn-outline border-black border-2 text-black hover:bg-black'>Back to All Movies</Link>
             </div>
         </div>
     );

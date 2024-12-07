@@ -2,10 +2,12 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Rating } from 'react-simple-star-rating';
 import { AuthContext } from './Provider/AuthProvider';
+import { fetchURL } from '../../fetchURL';
 
-const MovieCard = ({ movie }) => {
+const FavCard = ({ movie, handleDelete }) => {
 
     const { convertMinutesToTime } = useContext(AuthContext);
+
 
 
 
@@ -25,7 +27,7 @@ const MovieCard = ({ movie }) => {
                     <h2 className="card-title text-lg">{title}</h2>
                     <p>{summary?.length > 50 ? summary.slice(0, 50) + "..." : summary}</p>
                     <div className="card-actions justify-end">
-                        <Link to={`/movies/${_id}`} className="btn btn-md rounded-none">See Details</Link>
+                        <button onClick={() => handleDelete(_id)} className="btn btn-md rounded-none">Delete from Favourite</button>
                     </div>
                 </div>
             </div>
@@ -33,4 +35,4 @@ const MovieCard = ({ movie }) => {
     );
 };
 
-export default MovieCard;
+export default FavCard;

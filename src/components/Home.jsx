@@ -12,9 +12,9 @@ const Home = () => {
 
     return (
         <div>
-            <div>
+            <div className='container mx-auto'>
                 <h4 className='text-4xl'>Featured Movies</h4>
-                <div className='grid grid-cols-3'>
+                <div className='grid grid-cols-3 gap-10'>
                 {
                     featuredMovies.map((movie, idx)=> <MovieCard key={idx} movie={movie}></MovieCard>)
                 }

@@ -13,6 +13,7 @@ import Home from './components/Home.jsx';
 import { fetchURL } from '../fetchURL.js';
 import AuthProvider from './components/Provider/AuthProvider.jsx';
 import MovieDetails from './components/MovieDetails.jsx';
+import UpdateMovie from './components/UpdateMovie.jsx';
 
 
 const router = createBrowserRouter([
@@ -33,9 +34,17 @@ const router = createBrowserRouter([
         path: "/add_movies",
         element: <AddMovies></AddMovies>,
       },
+
       {
-        path: "/my_fav",
+        path: "/update_movie/:id",
+        element: <UpdateMovie></UpdateMovie>,
+        loader: ({params})=> fetch (`${fetchURL}/movies/${params.id}`)
+      },
+      {
+        path: "/my_fav/",
         element: <MyFavorites></MyFavorites>,
+         
+        
       },
       {
         path: "/extra_route",

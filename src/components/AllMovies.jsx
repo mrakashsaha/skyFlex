@@ -8,11 +8,12 @@ const AllMovies = () => {
 
     return (
 
-        <div>
+        <div className='container mx-auto'>
+            
             <h3>Movies: {movies.length}</h3>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 place-items-center md:place-items-start'>
                 {
-                    movies.map(movie => <MovieCard movie={movie} key={movie.id}></MovieCard>)
+                    movies.map((movie, idx) => <MovieCard movie={movie} key={idx}></MovieCard>)
                 }
             </div>
 
