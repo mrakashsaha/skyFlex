@@ -2,10 +2,13 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Rating } from 'react-simple-star-rating';
 import { fetchURL } from '../../fetchURL';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const AddMovies = () => {
 
-    const [ratingError, setRatingError] = useState (false);
+    const navigate = useNavigate();
+    const [ratingError, setRatingError] = useState(false);
 
     const [rating, setRating] = useState(0)
     const handleRating = (rate) => {
@@ -31,7 +34,27 @@ const AddMovies = () => {
 
         })
             .then(res => res.json())
-            .then(data => console.log(data))
+            .then(data => {
+                if (data.acknowledged) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Movie is added Sucessfully!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                    navigate ("/all_movies");
+
+                }
+            })
+            .catch (error => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Opps! Somthing Wrong",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+            })
 
     }
 
@@ -44,7 +67,7 @@ const AddMovies = () => {
                     <label className="label">
                         <span className="label-text">Movie Poster</span>
                     </label>
-                    <input type='url' className="input input-bordered" placeholder='Enter Poster URL' {...register("poster", { required: true})} />
+                    <input type='url' className="input input-bordered" placeholder='Enter Poster URL' {...register("poster", { required: true })} />
 
                     {errors.poster && <p className='text-red-600'>Poster is required</p>}
                 </div>
@@ -91,7 +114,7 @@ const AddMovies = () => {
                         <span className="label-text">Release Year</span>
                     </label>
                     <select className='select select-bordered' {...register("year", { required: true })}>
-                    <option value="">-- Select Year --</option>
+                        <option value="">-- Select Year --</option>
                         <option value="1990">1990</option>
                         <option value="1991">1991</option>
                         <option value="1992">1992</option>

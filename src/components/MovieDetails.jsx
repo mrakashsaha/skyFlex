@@ -6,6 +6,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import imdbLogo from '../assets/imdb-logo.svg'
 import { AuthContext } from './Provider/AuthProvider';
 import { fetchURL } from '../../fetchURL';
+import Swal from 'sweetalert2'
 
 const MovieDetails = () => {
     const navigate = useNavigate();
@@ -20,15 +21,40 @@ const MovieDetails = () => {
 
         console.log(id);
 
-        fetch(`${fetchURL}/movies/${id}`, {
-            method: 'DELETE'
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
         })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                navigate("/all_movies")
+            .then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`${fetchURL}/movies/${id}`, {
+                        method: 'DELETE'
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.deletedCount) {
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Your file has been deleted.",
+                                    icon: "success"
+                                });
+                                navigate("/all_movies")
+                            }
 
-            })
+
+                        })
+
+
+
+                }
+            });
+
+
 
     }
 
@@ -40,7 +66,6 @@ const MovieDetails = () => {
             duration, genre, poster, rating, summary, title, year,
         }
 
-        console.log(id);
         fetch(`${fetchURL}/fav_movies`, {
             method: 'POST',
             headers: {
@@ -51,8 +76,24 @@ const MovieDetails = () => {
 
         })
             .then(res => res.json())
-            .then(data => console.log(data))
-            .catch(error => console.log(error))
+            .then(data => {
+                if (data.insertedId) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Movie has been added to Favourite",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops! Somthing went wrong.",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            })
 
     }
 

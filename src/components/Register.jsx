@@ -9,7 +9,7 @@ const Register = () => {
 
     const navigate = useNavigate();
 
-    const { handleSignUp, setLoading, handleLoginWithGoogle } = useContext(AuthContext);
+    const { setUser, updateUserProfile, handleSignUp, setLoading, handleLoginWithGoogle } = useContext(AuthContext);
 
 
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -19,29 +19,32 @@ const Register = () => {
 
         const userDoc = { name, email, photo };
 
-
-
-
-
         handleSignUp(data.email, data.password)
             .then((result) => {
-                console.log(result);
+                const user = result.user;
+                setUser(user);
+                updateUserProfile({ displayName: name, photoURL: photo })
+                    .then(() => {
 
-                fetch(`${fetchURL}/users`, {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
+                        fetch(`${fetchURL}/users`, {
+                            method: 'POST',
+                            headers: {
+                                'content-type': 'application/json'
+                            },
 
-                    body: JSON.stringify(userDoc),
+                            body: JSON.stringify(userDoc),
 
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data)
-                        setLoading(false);
-                        navigate('/')
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                // setLoading(false);
+                                navigate('/')
+                            })
+
                     })
+
+
+
             })
             .catch((error) => {
                 console.log(error);
@@ -54,6 +57,8 @@ const Register = () => {
     const handleGoogleLogin = () => {
         handleLoginWithGoogle()
             .then((result) => {
+                const user = result.user;
+                setUser(user);
 
                 const isNewUser = getAdditionalUserInfo(result).isNewUser;
 

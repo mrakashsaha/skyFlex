@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import React, { createContext, useEffect, useState } from 'react';
 import { auth } from '../../firebase.init';
 import { fetchURL } from '../../../fetchURL';
@@ -30,6 +30,10 @@ const AuthProvider = ({ children }) => {
         return createUserWithEmailAndPassword(auth, email, password);
 
 
+    }
+
+    const updateUserProfile = (userInfo) => {
+        return updateProfile (auth.currentUser, userInfo)
     }
 
     const handleLogin = (email, password) => {
@@ -64,18 +68,18 @@ const AuthProvider = ({ children }) => {
     }, [])
 
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (!loading) {
-            fetch(`${fetchURL}/users/${user?.email}`)
-                .then(res => res.json())
-                .then(data => setUserInfo(data))
-                .catch(error => console.log('Invalid API call no user found'));
-        }
+    //     if (user) {
+    //         fetch(`${fetchURL}/users/${user?.email}`)
+    //             .then(res => res.json())
+    //             .then(data => setUserInfo(data))
+    //             .catch(error => console.log(error));
+    //     }
 
 
 
-    }, [loading])
+    // }, [loading])
 
 
     const authInfo = {
@@ -90,8 +94,10 @@ const AuthProvider = ({ children }) => {
         handleLoginWithGoogle,
         handleLogout,
         convertMinutesToTime,
+        updateUserProfile
 
     }
+
 
     return (
         <AuthContext.Provider value={authInfo}>

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import MovieCard from './MovieCard';
+import { fetchURL } from '../../fetchURL';
 
 const Home = () => {
     const [featuredMovies, setFeaturedMovies] = useState([]);
 
     useEffect(() => {
-        fetch (`http://localhost:3000/featured_movies`)
+        fetch (`${fetchURL}/featured_movies`)
         .then (res => res.json())
         .then (data=> setFeaturedMovies(data));
     }, [featuredMovies]);

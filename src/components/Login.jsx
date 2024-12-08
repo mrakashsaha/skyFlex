@@ -3,11 +3,12 @@ import { AuthContext } from './Provider/AuthProvider';
 import { useForm } from 'react-hook-form';
 import { fetchURL } from '../../fetchURL';
 import { getAdditionalUserInfo } from 'firebase/auth';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const navigate = useNavigate()
-    const { setLoading, handleLogin, handleLoginWithGoogle } = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const {setUser, setLoading, handleLogin, handleLoginWithGoogle } = useContext(AuthContext);
 
     const [firebaseError, setFirebaseError] = useState(null);
 
@@ -18,12 +19,13 @@ const Login = () => {
 
         handleLogin(data.email, data.password)
             .then((result) => {
-                console.log(result);
+                const user = result.user;
+                setUser(user);
+                console.log (location.state);
                 setLoading(false);
-                navigate('/')
+                navigate(location?.state  ? location?.state : "/");
             })
             .catch((error) => {
-                // console.log (error);
                 setFirebaseError(error.code);
                 setLoading(false);
             });
@@ -33,6 +35,8 @@ const Login = () => {
     const handleGoogleLogin = () => {
         handleLoginWithGoogle()
             .then((result) => {
+                const user = result.user;
+                setUser(user);
 
                 const isNewUser = getAdditionalUserInfo(result).isNewUser;
 
@@ -58,11 +62,12 @@ const Login = () => {
                         .then(data => {
                             console.log(data)
                             setLoading(false);
+                            
                         })
 
                 }
 
-                navigate('/')
+                navigate(location?.state ? location.state : "/");
                 setLoading(false);
             })
             .catch((error) => {
@@ -85,14 +90,15 @@ const Login = () => {
                         <span className="label-text">Email</span>
                     </label>
                     <input type='email' className="input input-bordered" placeholder='Enter Your Email' {...register("email", { required: true })} />
+                    {errors.email && <p className='text-red-600'>Email is required</p>}
                 </div>
 
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Password</span>
                     </label>
-                    <input type='password' className="input input-bordered" placeholder='Create Password' {...register("password", { required: true })} />
-
+                    <input type='password' className="input input-bordered" placeholder='Enter Password' {...register("password", { required: true })} />
+                    {errors.password && <p className='text-red-600'>Password is required</p>}
                     {firebaseError && <p className='text-red-600'>{firebaseError}</p>}
                 </div>
 

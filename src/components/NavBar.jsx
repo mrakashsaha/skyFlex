@@ -5,7 +5,7 @@ import { AuthContext } from './Provider/AuthProvider';
 const NavBar = () => {
 
     const navigate = useNavigate();
-    const { userInfo, handleLogout, loading } = useContext(AuthContext);
+    const {user, handleLogout, loading } = useContext(AuthContext);
 
 
     const handleLogoutUser = () => {
@@ -66,13 +66,13 @@ const NavBar = () => {
                             <span className="loading loading-ring loading-lg"></span>
                         </>
                         :
-                        userInfo ?
+                        user ?
                             <>
-                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle flex avatar tooltip tooltip-bottom" data-tip={userInfo?.name}>
+                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle flex avatar tooltip tooltip-bottom" data-tip={user?.displayName}>
                                     <div className="w-10 rounded-full">
                                         <img
-                                            alt="user img"
-                                            src={userInfo?.photo} />
+                                            alt="profile img"
+                                            src={user?.photoURL} />
                                     </div>
                                 </div>
                                 <button onClick={handleLogoutUser} className='btn'>Logout</button>

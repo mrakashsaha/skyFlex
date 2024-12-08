@@ -3,15 +3,15 @@ import { useForm } from 'react-hook-form';
 import { Rating } from 'react-simple-star-rating';
 import { fetchURL } from '../../fetchURL';
 import { useLoaderData } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 const UpdateMovie = () => {
     const currentMovieData = useLoaderData();
-    const [ratingError, setRatingError] = useState (false);
+    const [ratingError, setRatingError] = useState(false);
     const { duration, genre, poster, rating, summary, title, year, _id } = currentMovieData;
 
-    console.log (currentMovieData);
+    const [rating2, setRating] = useState(rating);
 
-    const [rating2, setRating] = useState(0)
     const handleRating = (rate) => {
         setRating(rate);
         setValue("rating", `${rate}`)
@@ -36,7 +36,29 @@ const UpdateMovie = () => {
 
         })
             .then(res => res.json())
-            .then(data => console.log(data))
+            .then(data => {
+                if (data.acknowledged) {
+                    if (data.modifiedCount>0) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Movie has been updated sucessfully!",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+
+                    else {
+                        Swal.fire({
+                            icon: "info",
+                            title: "No change found for Update!",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                    
+                }
+
+            })
 
     }
 
@@ -50,7 +72,7 @@ const UpdateMovie = () => {
                     <label className="label">
                         <span className="label-text">Movie Poster</span>
                     </label>
-                    <input type='url' className="input input-bordered" placeholder='Enter Poster URL' defaultValue={poster} {...register("poster", { required: true})} />
+                    <input type='url' className="input input-bordered" placeholder='Enter Poster URL' defaultValue={poster} {...register("poster", { required: true })} />
 
                     {errors.poster && <p className='text-red-600'>Poster is required</p>}
                 </div>
@@ -97,7 +119,7 @@ const UpdateMovie = () => {
                         <span className="label-text">Release Year</span>
                     </label>
                     <select className='select select-bordered' defaultValue={year} {...register("year", { required: true })}>
-                    <option value="">-- Select Year --</option>
+                        <option value="">-- Select Year --</option>
                         <option value="1990">1990</option>
                         <option value="1991">1991</option>
                         <option value="1992">1992</option>
@@ -144,6 +166,7 @@ const UpdateMovie = () => {
                         <span className="label-text">Rate This Movie</span>
                     </label>
                     <Rating initialValue={rating} onClick={handleRating} transition allowFraction showTooltip tooltipDefaultText='0' />
+                    {ratingError && <p className='text-red-600'>Ratting is Required</p>}
                 </div>
 
                 <div className="form-control">

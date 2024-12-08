@@ -14,12 +14,15 @@ import { fetchURL } from '../fetchURL.js';
 import AuthProvider from './components/Provider/AuthProvider.jsx';
 import MovieDetails from './components/MovieDetails.jsx';
 import UpdateMovie from './components/UpdateMovie.jsx';
+import PrivateRouter from './PrivateRouter.jsx';
+import ErrorPage from './components/ErrorPage.jsx';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -32,7 +35,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/add_movies",
-        element: <AddMovies></AddMovies>,
+        element: <PrivateRouter><AddMovies></AddMovies></PrivateRouter>,
       },
 
       {
@@ -42,7 +45,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/my_fav/",
-        element: <MyFavorites></MyFavorites>,
+        element: <PrivateRouter><MyFavorites></MyFavorites></PrivateRouter>,
          
         
       },
@@ -60,7 +63,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/movies/:id",
-        element: <MovieDetails></MovieDetails>,
+        element: <PrivateRouter><MovieDetails></MovieDetails></PrivateRouter>,
         loader: ({params})=> fetch(`${fetchURL}/movies/${params.id}`)
       },
     ]
