@@ -124,7 +124,7 @@ const MovieDetails = () => {
                         <h3 className='text-xl font-semibold ml-4'>{year}</h3>
 
 
-                        <div className='mx-4 pl-1 border-2 border-black h-[23px] leading-[20px] inline-block'>4K <b className='bg-black text-white px-1'>Ultra HD</b></div>
+                        <div className='mx-4 pl-1 border-2 border-black h-[23px] leading-[20px] inline-block'>4K <b className='bg-black text-white dark:text-green-400 px-1'>Ultra HD</b></div>
 
                         <h3 className='text-xl'>{' Duration: ' + convertMinutesToTime(duration) + ' min'}</h3>
                         <div className="font-semibold badge badge-outline text-lg p-3 mx-4">CC</div>
