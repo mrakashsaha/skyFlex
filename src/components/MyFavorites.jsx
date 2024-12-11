@@ -4,6 +4,7 @@ import Loading from './Loading';
 import { fetchURL } from '../../fetchURL';
 import FavCard from './FavCard';
 import Swal from 'sweetalert2'
+import subscribeBG from '../assets/page-header-bg.jpg'
 
 
 const MyFavorites = () => {
@@ -57,18 +58,30 @@ const MyFavorites = () => {
     }
 
     return (
-        <div className='container mx-auto'>
-            {
-                loading && <Loading></Loading>
-            }
+        <div>
+            <div className="relative h-52 lg:h-60 bg-cover bg-center" style={{ backgroundImage: `url(${subscribeBG})` }}>
+                <div className="absolute inset-0 bg-black/70 flex flex-col justify-center items-center text-center p-16 text-white">
+                    <h1 className="text-4xl font-bold">My Fav Movies</h1>
+                    <p className="text-sm font-light p-2">The Movies That Define My Taste</p>
+                </div>
+            </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 place-items-center md:place-items-start'>
+
+            <div className='container mx-auto mt-10'>
                 {
-                    favMovies.map((movie, idx) => <FavCard handleDelete={handleDelete} key={idx} movie={movie}></FavCard>)
+                    loading && <Loading></Loading>
                 }
+
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 place-items-center md:place-items-start'>
+                    {
+                        favMovies.map((movie, idx) => <FavCard handleDelete={handleDelete} key={idx} movie={movie}></FavCard>)
+                    }
+                </div>
+
             </div>
 
         </div>
+
     );
 };
 
