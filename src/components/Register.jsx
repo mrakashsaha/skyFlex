@@ -149,7 +149,7 @@ const Register = () => {
 
                         <input className='btn rounded-none bg-[#e90101] text-white px-6 py-2 hover:bg-[#e90101] transition' type="submit" value={"Signup"} />
                         <div className='border border-t my-2'></div>
-                        <a onClick={handleGoogleLogin} className='btn rounded-none bg-[black] text-white px-6 py-2 hover:bg-[black]/60 transition'>Continue with Google</a>
+                        <a onClick={handleGoogleLogin} className='btn rounded-none bg-[black] text-white px-6 py-2 hover:bg-[black]/60 transition'> <FaGoogle></FaGoogle> Continue with Google</a>
                     </form>
                 </div>
             </div>
