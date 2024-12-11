@@ -22,8 +22,8 @@ const Home = () => {
             </div>
             <div className='w-11/12 md:w-11/12 lg:container mx-auto my-10'>
                 <div>
-                    <h4 className='font-extrabold spacing text-xs tracking-widest lg:text-md'>SPOTLIGHT FILMS</h4>
-                    <h4 className='text-5xl font-bold pt-2 pb-10 md:pb-16'> Our Featured Movies</h4>
+                    <h4 className='pt-4 text-center font-extrabold spacing text-xs tracking-widest lg:text-md'>SPOTLIGHT FILMS</h4>
+                    <h4 className='text-center text-5xl font-bold pt-2 pb-10 md:pb-16'> Our Featured Movies</h4>
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
                         {
                             featuredMovies.map((movie, idx) => <MovieCard key={idx} movie={movie}></MovieCard>)

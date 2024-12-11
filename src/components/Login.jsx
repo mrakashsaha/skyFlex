@@ -80,45 +80,41 @@ const Login = () => {
 
     }
 
-
-
-
     return (
         <div className='bg-red-500/20 bg-blend-overlay hero min-h-screen' style={{ "backgroundImage": `url(${auth})` }}>
-            <div className='hero-content flex-col'>
-                <div className='max-w-md bg-base-100'>
-                    <div className='hero-content flex-col'>
-                        <h2 className=' font-bold text-center text-xl'>LOGIN NOW</h2>
-                        <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Email</span>
-                                </label>
-                                <input type='email' className="input input-bordered rounded-none" placeholder='Enter Your Email' {...register("email", { required: true })} />
-                                {errors.email && <p className='text-red-600'>Email is required</p>}
-                            </div>
-
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Password</span>
-                                </label>
-                                <input type='password' className="input input-bordered rounded-none" placeholder='Enter Password' {...register("password", { required: true })} />
-                                {errors.password && <p className='text-red-600'>Password is required</p>}
-                                {firebaseError && <p className='text-red-600'>{firebaseError}</p>}
-                            </div>
-
+            <div className='bg-base-100'>
+                <div className='hero-content flex-col'>
+                    <h2 className=' font-bold text-center text-xl'>LOGIN NOW</h2>
+                    <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
+                        <div className="form-control">
                             <label className="label">
-                                <span className='text-sm' >Don't have an account? <Link className='text-blue-700 underline' to={"/register"}>Register Here</Link> </span>
+                                <span className="label-text">Email</span>
                             </label>
+                            <input type='email' className="input input-bordered rounded-none" placeholder='Enter Your Email' {...register("email", { required: true })} />
+                            {errors.email && <p className='text-red-600'>Email is required</p>}
+                        </div>
+
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Password</span>
+                            </label>
+                            <input type='password' className="input input-bordered rounded-none" placeholder='Enter Password' {...register("password", { required: true })} />
+                            {errors.password && <p className='text-red-600'>Password is required</p>}
+                            {firebaseError && <p className='text-red-600'>{firebaseError}</p>}
+                        </div>
+
+                        <label className="label">
+                            <span className='text-sm' >Don't have an account? <Link className='text-blue-700 underline' to={"/register"}>Register Here</Link> </span>
+                        </label>
 
 
-                            <input className='btn rounded-none bg-[#e90101] text-white px-6 py-2 hover:bg-[#e90101] transition' type="submit" value={'Login'} />
-                            <div className='border border-t my-2'></div>
-                            <a onClick={handleGoogleLogin} className='btn rounded-none'> <FaGoogle />                            Continue with Google</a>
-                        </form>
-                    </div>
+                        <input className='btn rounded-none bg-[#e90101] text-white px-6 py-2 hover:bg-[#e90101] transition' type="submit" value={'Login'} />
+                        <div className='border border-t my-2'></div>
+                        <a onClick={handleGoogleLogin} className='btn rounded-none bg-[black] text-white px-6 py-2 hover:bg-[black]/60 transition'> <FaGoogle />Continue with Google</a>
+                    </form>
                 </div>
             </div>
+
         </div>
     );
 };

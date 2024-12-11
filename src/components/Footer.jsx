@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <div className='bg-base-200'>
+        <div className='bg-base-200 p-10'>
             <footer className="footer text-base-content py-10 container mx-auto">
                 <nav>
                     <h6 className="footer-title">Services</h6>
@@ -25,12 +25,12 @@ const Footer = () => {
                     <a className="link link-hover">Cookie policy</a>
                 </nav>
             </footer>
-            <footer className="footer bg-base-200 text-base-content border-base-300 border-t px-10 py-4">
+            <footer className="footer bg-base-200 text-base-content border-base-300 border-t p-2">
                 <aside className="grid-flow-col items-center">
                     <p>
                         SkyFlex Inc.
                         <br />
-                        Providing reliable tech since 2020
+                        Providing reliable services since 2014
                     </p>
                 </aside>
                 <nav className="md:place-self-center md:justify-self-end">
