@@ -6,7 +6,6 @@ import Root from './Root.jsx';
 import AllMovies from './components/AllMovies.jsx';
 import AddMovies from './components/AddMovies.jsx';
 import MyFavorites from './components/MyFavorites.jsx';
-import ExtraRoute from './components/ExtraRoute.jsx';
 import Register from './components/Register.jsx';
 import Login from './components/Login.jsx';
 import Home from './components/Home.jsx';
@@ -16,6 +15,7 @@ import MovieDetails from './components/MovieDetails.jsx';
 import UpdateMovie from './components/UpdateMovie.jsx';
 import PrivateRouter from './PrivateRouter.jsx';
 import ErrorPage from './components/ErrorPage.jsx';
+import ContactUs from './components/ContactUs.jsx';
 
 
 const router = createBrowserRouter([
@@ -50,8 +50,8 @@ const router = createBrowserRouter([
         
       },
       {
-        path: "/extra_route",
-        element: <ExtraRoute></ExtraRoute>,
+        path: "/contact_us",
+        element: <ContactUs></ContactUs>,
       },
       {
         path: "/login",

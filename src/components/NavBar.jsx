@@ -20,7 +20,7 @@ const NavBar = () => {
             <li><NavLink to={"/all_movies"} >All Movies</NavLink></li>
             <li><NavLink to={"/add_movies"} >Add Movies</NavLink></li>
             <li><NavLink to={`/my_fav/`} >My Favorites</NavLink></li>
-            <li><NavLink to={"/extra_route"} >Extra Route</NavLink></li>
+            <li><NavLink to={"/contact_us"} >Contact Us</NavLink></li>
         </>
 
 
