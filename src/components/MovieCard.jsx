@@ -12,7 +12,7 @@ const MovieCard = ({ movie }) => {
     const { duration, genre, poster, rating, summary, title, year, _id } = movie;
     return (
         <div>
-            <div className="card card-compact bg-base-100 w-96 shadow-xl rounded-none">
+            <div className="card card-compact bg-base-100 rounded-md shadow-xl">
                 <figure className='relative'>
                     <img className='w-full h-[420px] object-cover' src={poster} />
                     <span className='absolute bg-black/70 text-white right-2 bottom-2 px-1'>{convertMinutesToTime(duration)} min</span>

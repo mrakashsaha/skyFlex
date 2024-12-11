@@ -25,7 +25,7 @@ const NavBar = () => {
 
 
     return (
-        <div className='bg-base-100'>
+        <div className='bg-base-100 sticky w-full -top-2 z-20'>
             <div className="navbar container mx-auto">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -51,7 +51,7 @@ const NavBar = () => {
                             }
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">daisyUI</a>
+                    <a className="btn btn-ghost text-xl">SkyFlex</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">

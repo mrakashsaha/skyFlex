@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MovieCard from './MovieCard';
 import { fetchURL } from '../../fetchURL';
+import Slider from './Slider';
 
 const Home = () => {
     const [featuredMovies, setFeaturedMovies] = useState([]);
@@ -13,9 +14,12 @@ const Home = () => {
 
     return (
         <div>
-            <div className='container mx-auto'>
+            <div>
+                <Slider></Slider>
+            </div>
+            <div className='w-11/12 md:w-11/12 lg:container mx-auto my-10'>
                 <h4 className='text-4xl'>Featured Movies</h4>
-                <div className='grid grid-cols-3 gap-10'>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
                 {
                     featuredMovies.map((movie, idx)=> <MovieCard key={idx} movie={movie}></MovieCard>)
                 }

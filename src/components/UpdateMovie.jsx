@@ -37,6 +37,7 @@ const UpdateMovie = () => {
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data);
                 if (data.acknowledged) {
                     if (data.modifiedCount>0) {
                         Swal.fire({
