@@ -2,11 +2,12 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Rating } from 'react-simple-star-rating';
 import { fetchURL } from '../../fetchURL';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
 
 const UpdateMovie = () => {
     const currentMovieData = useLoaderData();
+    const navigate = useNavigate ();
     const [ratingError, setRatingError] = useState(false);
     const { duration, genre, poster, rating, summary, title, year, _id } = currentMovieData;
 
@@ -37,7 +38,6 @@ const UpdateMovie = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.acknowledged) {
                     if (data.modifiedCount > 0) {
                         Swal.fire({
@@ -46,6 +46,8 @@ const UpdateMovie = () => {
                             showConfirmButton: false,
                             timer: 1500
                         });
+                        navigate(`/movies/${_id}`)
+
                     }
 
                     else {

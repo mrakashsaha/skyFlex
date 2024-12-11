@@ -68,20 +68,6 @@ const AuthProvider = ({ children }) => {
     }, [])
 
 
-    // useEffect(() => {
-
-    //     if (user) {
-    //         fetch(`${fetchURL}/users/${user?.email}`)
-    //             .then(res => res.json())
-    //             .then(data => setUserInfo(data))
-    //             .catch(error => console.log(error));
-    //     }
-
-
-
-    // }, [loading])
-
-
     const authInfo = {
 
         user,

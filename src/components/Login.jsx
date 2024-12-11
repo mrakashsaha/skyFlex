@@ -23,7 +23,6 @@ const Login = () => {
             .then((result) => {
                 const user = result.user;
                 setUser(user);
-                console.log(location.state);
                 setLoading(false);
                 navigate(location?.state ? location?.state : "/");
             })
@@ -62,7 +61,6 @@ const Login = () => {
                     })
                         .then(res => res.json())
                         .then(data => {
-                            console.log(data)
                             setLoading(false);
 
                         })
@@ -73,7 +71,6 @@ const Login = () => {
                 setLoading(false);
             })
             .catch((error) => {
-                // console.log (error);
                 setFirebaseError(error.code);
                 setLoading(false);
             });

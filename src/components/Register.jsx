@@ -49,7 +49,6 @@ const Register = () => {
 
             })
             .catch((error) => {
-                console.log(error);
                 alert(error.code)
                 setLoading(false);
             });
@@ -84,7 +83,6 @@ const Register = () => {
                     })
                         .then(res => res.json())
                         .then(data => {
-                            console.log(data)
                             setLoading(false);
                         })
 
@@ -94,8 +92,7 @@ const Register = () => {
                 setLoading(false);
             })
             .catch((error) => {
-                // console.log (error);
-                console.log(error);
+
                 setLoading(false);
             });
 

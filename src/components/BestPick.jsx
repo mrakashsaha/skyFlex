@@ -7,7 +7,7 @@ import multiDevice from '../assets/multi_device.png'
 const BestPick = () => {
     return (
         <div>
-            <div className="hero bg-base-200 py-10">
+            <div className="hero bg-base-200 py-10 lg:py-20">
                 <div className="hero-content flex-col-reverse md:flex-row">
                     <img
                         src={bestPick}

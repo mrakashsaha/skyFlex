@@ -10,8 +10,6 @@ const AllMovies = () => {
     const [query, setQuery] = useState('');
 
     const filterdMovies = movies.filter((movie) => movie.title.toLowerCase().includes('five start movie'));
-    console.log(filterdMovies);
-
     return (
 
         <div className=''>

@@ -97,7 +97,7 @@ const NavBar = () => {
                                             src={user?.photoURL} />
                                     </div>
                                 </div>
-                                <button onClick={handleLogoutUser} className='btn rounded-none'>Logout</button>
+                                <button onClick={handleLogoutUser} className='ml-3 btn rounded-none'>Logout</button>
                             </>
                             :
                             <>
