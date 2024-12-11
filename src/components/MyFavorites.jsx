@@ -5,6 +5,7 @@ import { fetchURL } from '../../fetchURL';
 import FavCard from './FavCard';
 import Swal from 'sweetalert2'
 import subscribeBG from '../assets/page-header-bg.jpg'
+import NoMovie from './NoMovie';
 
 
 const MyFavorites = () => {
@@ -67,16 +68,21 @@ const MyFavorites = () => {
             </div>
 
 
-            <div className='container mx-auto mt-10'>
+            <div className='container mx-auto my-12'>
                 {
                     loading && <Loading></Loading>
                 }
+
 
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 place-items-center md:place-items-start'>
                     {
                         favMovies.map((movie, idx) => <FavCard handleDelete={handleDelete} key={idx} movie={movie}></FavCard>)
                     }
                 </div>
+
+                {
+                    !loading && favMovies.length ===0 && <NoMovie></NoMovie>
+                }
 
             </div>
 

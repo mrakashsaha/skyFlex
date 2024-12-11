@@ -104,8 +104,8 @@ const Register = () => {
     return (
         <div className='bg-red-500/20 bg-blend-overlay hero min-h-screen' style={{ "backgroundImage": `url(${auth})` }}>
             <div className='bg-base-100 my-4'>
-                <div className='hero-content min-w-2xl flex-col'>
-                    <h2 className='text-center text-xl'>REGISTER</h2>
+                <div className='hero-content flex-col'>
+                    <h2 className='text-center text-xl font-bold'>REGISTER</h2>
                     <form className=" py-2 card-body" onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-control">
                             <label className="label">

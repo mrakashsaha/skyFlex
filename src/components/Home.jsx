@@ -33,7 +33,7 @@ const Home = () => {
 
                 <div>
                     <div className='text-center pt-10'>
-                        <Link to={"all_movies"} className='btn drop-shadow-xl  md:btn-md lg:btn-lg text-white hover:text-black font-bold rounded-none border-[#e90101] bg-[#e90101] hover:bg-transparent hover:border-2 hover:border-[#e90101]'>SEE ALL MOVIES</Link>
+                        <Link to={"all_movies"} className='btn drop-shadow-xl  md:btn-md lg:btn-lg text-white hover:text-black font-bold rounded-none border-[#e90101] bg-[#e90101] hover:bg-transparent hover:border-2 hover:border-[#e90101]'>WATCH ALL MOVIES</Link>
                     </div>
                 </div>
 

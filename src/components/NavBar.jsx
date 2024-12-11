@@ -29,7 +29,7 @@ const NavBar = () => {
             <div className="navbar container mx-auto">
                 <div className="navbar-start">
                     <div className="dropdown">
-                        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                        <div tabIndex={0} role="button" className="btn rounded-none btn-ghost lg:hidden">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-5 w-5"
@@ -97,12 +97,12 @@ const NavBar = () => {
                                             src={user?.photoURL} />
                                     </div>
                                 </div>
-                                <button onClick={handleLogoutUser} className='btn'>Logout</button>
+                                <button onClick={handleLogoutUser} className='btn rounded-none'>Logout</button>
                             </>
                             :
                             <>
-                                <Link to={"/register"} className="btn rounded-md">Register</Link>
-                                <Link to={"/login"} className="btn">Login</Link>
+                                <Link to={"/register"} className="btn rounded-none mx-3">Register</Link>
+                                <Link to={"/login"} className="btn rounded-none">Login</Link>
                             </>
 
 

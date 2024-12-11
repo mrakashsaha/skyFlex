@@ -14,21 +14,21 @@ const AllMovies = () => {
 
     return (
 
-        <div>
+        <div className=''>
             <div className="relative h-52 lg:h-60 bg-cover bg-center" style={{ backgroundImage: `url(${subscribeBG})` }}>
                 <div className="absolute inset-0 bg-black/70 flex flex-col justify-center items-center text-center p-16 text-white">
                     <h1 className="text-4xl font-bold">Find All Movies</h1>
                     <p className="text-sm font-light">All new released Hollywood and world movies here to watch</p>
                 </div>
             </div>
-            <div className='container mx-auto'>
+            <div className='container mx-auto py-10 '>
                 <div className='flex justify-between items-center my-8 pl-4 pr-8'>
                     <div>
-                        <h2 className='text-2xl md:text-4xl font-medium'>Movies: {movies.length}</h2>
+                        <h2 className='text-xl md:text-3xl font-medium'>MOVIES: {movies.length}</h2>
                     </div>
                     <div className=''>
-                    <label className="input input-bordered flex items-center">
-                            <input onChange={(e) => setQuery(e.target.value.toLowerCase())} type="text" className="" placeholder="Search" />
+                    <label className="input input-bordered rounded-none flex items-center">
+                            <input onChange={(e) => setQuery(e.target.value.toLowerCase())} type="text" placeholder="Search" />
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 16 16"

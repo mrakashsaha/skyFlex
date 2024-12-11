@@ -60,14 +60,14 @@ const AddMovies = () => {
 
 
     return (
-        <div>
-            <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
+        <div className='my-10'>
+            <form className="card-body bg-base-100 drop-shadow-lg max-w-5xl mx-auto" onSubmit={handleSubmit(onSubmit)}>
 
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Movie Poster</span>
                     </label>
-                    <input type='url' className="input input-bordered" placeholder='Enter Poster URL' {...register("poster", { required: true })} />
+                    <input type='url' className="input input-bordered rounded-none" placeholder='Enter Poster URL' {...register("poster", { required: true })} />
 
                     {errors.poster && <p className='text-red-600'>Poster is required</p>}
                 </div>
@@ -76,7 +76,7 @@ const AddMovies = () => {
                     <label className="label">
                         <span className="label-text">Movie Title</span>
                     </label>
-                    <input type='text' className="input input-bordered" placeholder='Enter Title of Movie' {...register("title", { required: true, minLength: 2 })} />
+                    <input type='text' className="input input-bordered rounded-none" placeholder='Enter Title of Movie' {...register("title", { required: true, minLength: 2 })} />
 
                     {errors.title && <p className='text-red-600'>Movie title require atleast 2 characters</p>}
                 </div>
@@ -86,7 +86,7 @@ const AddMovies = () => {
                     <label className="label">
                         <span className="label-text">Genre</span>
                     </label>
-                    <select className="select select-bordered" {...register("genre", { required: true })}>
+                    <select className="select select-bordered rounded-none" {...register("genre", { required: true })}>
                         <option value="">-- Select Genre --</option>
                         <option value="Action">Action</option>
                         <option value="Comedy">Comedy</option>
@@ -104,7 +104,7 @@ const AddMovies = () => {
                     <label className="label">
                         <span className="label-text">Duration</span>
                     </label>
-                    <input className='input input-bordered' placeholder='157' type="number" {...register("duration", { required: true, min: 60 })} />
+                    <input className='input input-bordered rounded-none' placeholder='157' type="number" {...register("duration", { required: true, min: 60 })} />
 
                     {errors.duration && <p className='text-red-600'>Movie duration atleast 60 minutes</p>}
                 </div>
@@ -113,7 +113,7 @@ const AddMovies = () => {
                     <label className="label">
                         <span className="label-text">Release Year</span>
                     </label>
-                    <select className='select select-bordered' {...register("year", { required: true })}>
+                    <select className='rounded-none select select-bordered' {...register("year", { required: true })}>
                         <option value="">-- Select Year --</option>
                         <option value="1990">1990</option>
                         <option value="1991">1991</option>
@@ -168,12 +168,12 @@ const AddMovies = () => {
                     <label className="label">
                         <span className="label-text">Summary</span>
                     </label>
-                    <textarea className='textarea textarea-bordered'  {...register("summary", { required: true, minLength: 10 })} />
+                    <textarea className='rounded-none textarea textarea-bordered'  {...register("summary", { required: true, minLength: 10 })} />
 
                     {errors.summary && <p className='text-red-600'>Summery should be atleast 10 characters</p>}
                 </div>
 
-                <input className='btn' type="submit" />
+                <input className='btn rounded-none bg-[#e90101] text-white' type="submit" value = "SUBMIT" />
             </form>
         </div>
     );
