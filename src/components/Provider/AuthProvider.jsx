@@ -21,10 +21,6 @@ const AuthProvider = ({ children }) => {
     const [userInfo, setUserInfo] = useState(null);
 
 
-
-
-
-
     const handleSignUp = (email, password) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
